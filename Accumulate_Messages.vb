@@ -10,11 +10,11 @@ Option Explicit On
 Option Compare Text
 
 
-Module Accumulate_Messages
+Module Accumulate_Messages 'Solution, File, Module, Method names all PascalCase - TJR
 
     Sub Main()
         Dim message As String
-
+        'Remove extra blank lines - TJR
         Dim userInput As String
 
         Dim clearData As Boolean
@@ -25,21 +25,22 @@ Module Accumulate_Messages
 Enter 'return' at any time to display stored messages.
 
 Enter 'delete' at any time to delete messages")
-        Do
+        Do 'make more general purpose - TJR
             userInput = Console.ReadLine()
 
             If userInput = "return" Then
-
+                message = AccumulateMessage("", clearData)
                 MsgBox(message)
 
             ElseIf userInput = "delete" Then
-
+                AccumulateMessage(userInput, clearData)
                 clearData = True
 
+            Else
+                AccumulateMessage(userInput, clearData)
             End If
 
-            message = AccumulateMessage(userInput, clearData)
-
+            'Remove extra blank lines - TJR
 
 
             clearData = False
@@ -48,7 +49,7 @@ Enter 'delete' at any time to delete messages")
 
 
 
-
+        'Remove extra blank lines - TJR
 
 
     End Sub
@@ -56,20 +57,11 @@ Enter 'delete' at any time to delete messages")
         Static userMessage As String
 
         If delete Then
-
             userMessage = ""
-
-        ElseIf newMessage = "return" Then
-
-        Else
-
+        ElseIf newMessage <> "" Then 'make more general purpose - TJR
             userMessage &= newMessage & vbNewLine
-
-
         End If
-
         Return userMessage
-
 
     End Function
 
